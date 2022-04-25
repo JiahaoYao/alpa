@@ -59,6 +59,10 @@ from alpa.util import (benchmark_func, list_gpu_info,
                        infer_offset_and_n_elements, jax_tensor_index,
                        OrderedSet, update_jax_platform)
 
+if global_config.has_cuda:
+    import cupy
+    from cupy.cuda import nccl
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 

@@ -1,3 +1,12 @@
+from . import global_env
+
+from alpa.global_env import global_config
+try:
+    import cupy
+    global_config.has_cuda = True
+except ImportError:
+    global_config.has_cuda = False
+
 from alpa.api import (init, shutdown, parallelize, grad, value_and_grad,
                       clear_executable_cache, set_parallelize_options)
 from alpa.data_loader import DataLoader, MeshDriverDataLoader

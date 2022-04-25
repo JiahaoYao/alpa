@@ -31,10 +31,11 @@ import flax
 from flax.training import train_state
 import ray
 import tqdm
-import cupy as cp
 
 from alpa.global_env import global_config, is_worker
 
+if global_config.has_cuda:
+    import cupy as cp
 
 ########################################
 ##### Alpa API Utilities

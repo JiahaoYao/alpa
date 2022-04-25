@@ -8,6 +8,7 @@ class GlobalConfig:
     def __init__(self):
         ########## Options of device mesh ##########
         self.backend = "gpu"
+        self.has_cuda = False
         self.xla_client_mem_fraction = float(
             os.environ.get("XLA_PYTHON_CLIENT_MEM_FRACTION", 0.9))
         self.xla_gpu_autotune_level = 4
