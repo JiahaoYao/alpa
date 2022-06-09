@@ -24,7 +24,7 @@ pipeline_p = Primitive("pipeline_marker")
 def mark_pipeline_boundary():
     """Mark the boundary of pipeline layers. We reuse pipeline_marker for this
     functionality."""
-    return pipeline_p.bind(name="boundary", mark_type="boundary")
+    return pipeline_p.bind(0, name="boundary", mark_type="boundary")
 
 
 def mark_gradient(grad):
@@ -112,8 +112,9 @@ def _pipeline_abstract_eval(*args, **kwargs):
 def _pipeline_xla_translation(c, *args, **kwargs):
     # TODO(yonghao): separate identity and marker in JAX
     if kwargs["mark_type"] == "hook":
-        return xla_identity(c, "hook", *args)
-    return xla_pipeline_marker(c, kwargs["mark_type"], kwargs["name"], *args)
+        ret = xla_identity(c, "hook", *args)
+    ret = xla_pipeline_marker(c, kwargs["mark_type"], kwargs["name"], *args)
+    return ret
 
 
 def _pipeline_value_and_jvp(arg_values, arg_tangents, name, mark_type):
